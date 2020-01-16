@@ -1,7 +1,7 @@
-language: python
-python:
-  - "3.7"
-install:
-  - pip install -r requirements.txt
-script:
-  - pytest
+services:
+  - docker
+before_install:
+  - docker image build -t marypattinson/imagetest .
+deploy:
+  provider: script
+  script: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && docker push marypattinson/imagetest
